@@ -5,7 +5,8 @@ export function sendEmail(data: FormData) {
   console.log(data)
   fetch(apiEndpoint, {
     method: "POST",
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
   })
     .then((res) => res.json())
     .then((response) => {
