@@ -58,8 +58,8 @@ const Paralax = () => {
 
   return (
     <div>
-      <div className="bg-[#ebebeb] overflow-hidden ">
-        <div className="shadow-md rounded-sm gap-6 bg-[url('/backgorund.webp')] bg-fixed  bg-no-repeat overflow-hidden">
+      <div className="bg-[#ebebeb]">
+        <div className="shadow-md rounded-sm gap-6 bg-[url('/backgorund.webp')] bg-fixed  bg-no-repeat ">
           {/* <Image
             src={"/backgorund.webp"}
             alt={"business.name"}

@@ -47,7 +47,7 @@ export default function Home() {
           />
         );
       })}
-      <div className="bg-[#ebebeb] rounded-lg mb-40 overflow-x-auto ">
+      <div className="bg-[#ebebeb] rounded-lg mb-40">
         <div className="shadow-md gap-6 bg-fixed  bg-no-repeat ">
           {/* <Image
             src={"/backgorund.webp"}

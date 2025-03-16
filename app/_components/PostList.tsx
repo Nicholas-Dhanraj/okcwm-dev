@@ -10,7 +10,7 @@ interface ModalProps {
 }
 const PostList: React.FC<ModalProps> = ({ postList, title }) => {
   return (
-    <div className="m-5 overflow-x-hidden ">
+    <div className="m-5">
       <h2 className="font-bold text-[22px]">{title}</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-5">
         {postList.length > 0 && title !== "All"

@@ -10,7 +10,6 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { sendEmail } from "@/app/utils/email";
-import Link from "next/link";
 export type FormData = {
   name: string;
   email: string;
@@ -55,14 +54,7 @@ export default function Home() {
           {/* <h2>together</h2> */}
           <motion.div style={{ x }} className={styles.buttonContainer}>
             <Rounded backgroundColor={"#25D366"} className={styles.button}>
-              <p>
-                {/* Watsapp (icon){" "} */}
-                <Magnetic>
-                  <Link href={"/"}>
-                    <Image src="/wa.svg" width={60} height={60} alt="youtube" />
-                  </Link>
-                </Magnetic>
-              </p>
+              <p>Watsapp (icon)</p>
             </Rounded>
           </motion.div>
           <motion.svg

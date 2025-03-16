@@ -13,7 +13,6 @@ import Paralax from "./_components/Paralax";
 import styles from "./style.module.scss";
 import Magnetic from "@/common/Magnetic";
 import { motion } from "framer-motion";
-import Link from "next/link";
 export default function Home() {
   const [categoryList, setCategoryList] = useState([]);
   const [businessList, setBusinessList] = useState([]);
@@ -56,38 +55,24 @@ export default function Home() {
               </span>
               <span>
                 <h3>Version</h3>
-                <p>1.0.0</p>
+                <p>0.0.1</p>
               </span>
             </div>
             <div>
-              {/* <span>
+              <span>
                 <h3>socials</h3>
-              </span> */}
-
+                <Magnetic>
+                  <p>Instagram</p>
+                </Magnetic>
+              </span>
+              {/* <Magnetic>
+              <p>Tiktok</p>
+            </Magnetic> */}
               <Magnetic>
-                <Link
-                  href={"https://youtube.com/@ollakaisi?si=mi856FP75CKwX5Zc"}
-                >
-                  <Image src="/yt.svg" width={30} height={30} alt="youtube" />
-                </Link>
+                <p>TikTok</p>
               </Magnetic>
               <Magnetic>
-                <Link
-                  href={
-                    "https://www.tiktok.com/@ollaalkaisi?_t=ZM-8uMBdknVwNb&_r=1"
-                  }
-                >
-                  <Image src="/tt.svg" width={30} height={30} alt="tik tok" />
-                </Link>
-              </Magnetic>
-              <Magnetic>
-                <Link
-                  href={
-                    "https://www.instagram.com/ollaalkaisi?igsh=MTNqM2pyOXltMzR2dw=="
-                  }
-                >
-                  <Image src="/ig.svg" width={30} height={30} alt="instagram" />
-                </Link>
+                <p>Youtube</p>
               </Magnetic>
             </div>
           </div>
