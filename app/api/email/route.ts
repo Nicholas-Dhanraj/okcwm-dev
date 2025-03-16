@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   const transport = nodemailer.createTransport({
     host: "smtp.titan.email",
     port: 587,
-    secure: true,
+    // secure: true,
     /* 
       setting service as 'gmail' is same as providing these setings:
       host: "smtp.gmail.com",
