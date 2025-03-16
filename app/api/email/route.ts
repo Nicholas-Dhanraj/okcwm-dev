@@ -24,12 +24,12 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  const mailOptions: Mail.Options = {
-    from: process.env.MY_EMAIL,
-    to: process.env.MY_EMAIL,
-    cc: process.env.MY_EMAIL,
-    subject: subject,
-    text: message,
+ const mailOptions: Mail.Options = {
+    from: "admin@okcwm.com",
+    to: "admin@okcwm.com",
+    cc: "admin@okcwm.com",
+    subject: "sub",
+    text: "msg",
   };
   console.log(mailOptions);
   const sendMailPromise = () =>
