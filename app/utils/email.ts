@@ -8,11 +8,11 @@ export function sendEmail(data: FormData) {
     body: JSON.stringify(data),
     // headers: { "Content-Type": "application/json", Accept: "application/json" },
   })
-    .then((res) => res.json())
-    .then((response) => {
-      alert(response.message);
-    })
-    .catch((err) => {
-      alert(err);
-    });
+    // .then((res) => res.json())
+    // .then((response) => {
+    //   alert(response.message);
+    // })
+    // .catch((err) => {
+    //   alert(err);
+    // });
 }
