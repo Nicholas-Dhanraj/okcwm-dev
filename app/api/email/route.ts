@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
 
   const transport = nodemailer.createTransport({
     host: "smtp.titan.email",
-    port: 465,
+    port: 587,
     secure: true,
     /* 
       setting service as 'gmail' is same as providing these setings:
@@ -28,10 +28,10 @@ export async function POST(request: NextRequest) {
     from: process.env.MY_EMAIL,
     to: process.env.MY_EMAIL,
     cc: process.env.MY_EMAIL,
-    subject: subject,
-    text: message,
+    // subject: subject,
+    // text: message,
   };
-  // console.log(mailOptions);
+  console.log(mailOptions);
   const sendMailPromise = () =>
     new Promise<string>((resolve, reject) => {
       transport.sendMail(mailOptions, function (err) {
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
   try {
     await sendMailPromise();
-    return NextResponse.json({ message: "Email sent" });
+    //return NextResponse.json({ message: "Email sent" });
   } catch (err) {
     return NextResponse.json({ error: err }, { status: 500 });
   }
