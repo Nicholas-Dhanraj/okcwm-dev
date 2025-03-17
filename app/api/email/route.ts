@@ -23,26 +23,31 @@ export async function POST(request: NextRequest) {
       pass: process.env.MY_PASSWORD,
     },
   });
-  console.log("hi");
+  // console.log("hi");
 
   const mailOptions: Mail.Options = {
     from: process.env.MY_EMAIL,
     to: process.env.MY_EMAIL,
     cc: process.env.MY_EMAIL,
-    // subject: subject,
-    // text: message,
+    subject: subject,
+    text: message,
   };
   console.log(mailOptions);
-  await new Promise((resolve, reject) => {
-    // send mail
-    transport.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.error(err);
-        reject(err);
-      } else {
-        console.log(info);
-        resolve(info);
-      }
+  const sendMailPromise = () =>
+    new Promise<string>((resolve, reject) => {
+      transport.sendMail(mailOptions, function (err) {
+        if (!err) {
+          resolve("Email sent");
+        } else {
+          reject(err.message);
+        }
+      });
     });
-  });
+
+  try {
+    await sendMailPromise();
+    return NextResponse.json({ message: "Email sent" });
+  } catch (err) {
+    return NextResponse.json({ error: err }, { status: 500 });
+  }
 }
