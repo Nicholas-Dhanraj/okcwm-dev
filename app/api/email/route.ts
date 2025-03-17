@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
 
 export async function POST(request: NextRequest) {
-  const { email, name, message } = await request.json();
+  const { email, name, message, subject } = await request.json();
 
   const transport = nodemailer.createTransport({
     host: "smtp.titan.email",
