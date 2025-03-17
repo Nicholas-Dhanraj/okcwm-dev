@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import Mail from "nodemailer/lib/mailer";
 
 export async function POST(request: NextRequest) {
-  const { email, name, message, subject } = await request.json();
+  const { email, name, message } = await request.json();
 
   const transport = nodemailer.createTransport({
     host: "smtp.titan.email",
@@ -23,16 +23,15 @@ export async function POST(request: NextRequest) {
       pass: process.env.MY_PASSWORD,
     },
   });
-  // console.log("hi");
 
   const mailOptions: Mail.Options = {
     from: process.env.MY_EMAIL,
     to: process.env.MY_EMAIL,
-    cc: process.env.MY_EMAIL,
-    subject: subject,
+    // cc: email, (uncomment this line if you want to send a copy to the sender)
+    subject: `Message from ${name} (${email})`,
     text: message,
   };
-  console.log(mailOptions);
+
   const sendMailPromise = () =>
     new Promise<string>((resolve, reject) => {
       transport.sendMail(mailOptions, function (err) {
