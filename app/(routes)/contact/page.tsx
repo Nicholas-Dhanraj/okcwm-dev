@@ -30,7 +30,7 @@ export default function Home() {
   const { register, handleSubmit } = useForm<FormData>();
 
   function onSubmit(data: FormData) {
-    // sendEmail(data);
+    sendEmail(data);
   }
 
   return (
