@@ -29,9 +29,9 @@ export default function Home() {
 
   const { register, handleSubmit } = useForm<FormData>();
 
-  function onSubmit(data: FormData) {
-    sendEmail(data);
-  }
+  // function onSubmit(data: FormData) {
+  //   sendEmail(data);
+  // }
 
   return (
     <motion.div style={{ y }} ref={container} className={styles.contact}>
