@@ -31,26 +31,11 @@ function BusinessDescription({ business }: any) {
         <h2 className="font-bold text-[25px] ">Description</h2>
         <p className="mt-4 text-lg text-gray-600">{business.about}</p>
 
-        <h2 className="font-bold text-[25px] mt-8">Gallary</h2>
+        {/* <h2 className="font-bold text-[25px] mt-8">Gallary</h2> */}
         <div
           className="grid grid-cols-2 md:grid-cols-2
       lg:grid-cols-2 gap-5 mt-5"
         >
-          {business?.images?.map(
-            (
-              item: { url: string | StaticImport },
-              index: React.Key | null | undefined
-            ) => (
-              <Image
-                src={item?.url}
-                key={index}
-                alt="image"
-                width={700}
-                height={200}
-                className="rounded-lg"
-              />
-            )
-          )}
           {/* <Button
             disabled={!(selectedTime && date)}
 
@@ -66,7 +51,7 @@ function BusinessDescription({ business }: any) {
                   {
                     lineItems: [
                       {
-                        price: "price_1PNMGyP1cuejz2kzttZrj10a",
+                        price: "price_1R4BFW03uwdOP6bvaQtdHymP",
                         quantity: 1,
                       },
                     ],
@@ -136,6 +121,21 @@ function BusinessDescription({ business }: any) {
             // </DialogFooter> */}
             //     </DialogContent>
             //   </Dialog>
+          )}
+          {business?.images?.map(
+            (
+              item: { url: string | StaticImport },
+              index: React.Key | null | undefined
+            ) => (
+              <Image
+                src={item?.url}
+                key={index}
+                alt="image"
+                width={700}
+                height={200}
+                className="rounded-lg"
+              />
+            )
           )}
         </div>
       </div>
