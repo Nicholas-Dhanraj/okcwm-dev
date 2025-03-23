@@ -2,10 +2,10 @@ import { FormData } from "../_components/contactForm";
 
 export function sendEmail(data: FormData) {
   const apiEndpoint = "/api/email";
-  console.log(data)
+console.log(JSON.stringify(data));
   fetch(apiEndpoint, {
     method: "POST",
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   })
     .then((res) => res.json())
     .then((response) => {
