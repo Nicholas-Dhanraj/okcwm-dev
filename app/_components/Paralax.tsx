@@ -96,6 +96,7 @@ const Paralax = () => {
               height={200}
               className="object-cover"
             />
+
             {/* <h2 className="text-gray-950 text-4xl font-sans font-normal text-center">
               "Our Food Should Be Our Medicine & Our Medicine Should Be Our
               Food"
