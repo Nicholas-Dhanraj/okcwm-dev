@@ -21,6 +21,7 @@ interface ModalProps {
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { sendEmail } from "../utils/email";
+import { revalidatePath } from "next/cache";
 
 export type FormData = {
   name: string;
@@ -34,8 +35,11 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
   const [form, setForm] = useState(InitialFormState);
   const { weight, height, age, activityFactor, output } = form;
   const [gender, setGender] = useState("male");
+  const [disabled, setDisabled] = useState(true);
+
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    setDisabled(true);
 
     setForm({
       ...form,
@@ -46,13 +50,17 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
   //on focus lost, toNumber will format to value of textfirld. to validate the numbers
   const onBlur = (e: FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    setDisabled(true);
 
     setForm({
       ...form,
       [name]: toNumber(value),
     });
   };
-
+  const genderChange = (e: any) => {
+    setGender(e.target.value);
+    setDisabled(true);
+  };
   const onCalculate = () => {
     if (!weight || !height || !age || !activityFactor) return;
     console.log(gender);
@@ -64,15 +72,30 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
           ? (10 * weight + 6.25 * height - 5 * age + 5) * activityFactor
           : (10 * weight + 6.25 * height - 5 * age - 16) * activityFactor,
     });
+    setDisabled(false);
+    console.log("OUTPUT1" + output);
   };
 
   const onReset = () => {
     setForm(InitialFormState);
+    setDisabled(true);
   };
   const { register, handleSubmit } = useForm<FormData>();
 
   function onSubmit(data: FormData) {
-    // console.log(data);
+    if (!weight || !height || !age || !activityFactor) return;
+    console.log(gender);
+    setForm({
+      ...form,
+
+      output:
+        gender === "male"
+          ? (10 * weight + 6.25 * height - 5 * age + 5) * activityFactor
+          : (10 * weight + 6.25 * height - 5 * age - 16) * activityFactor,
+    });
+    console.log("OUTPUT2" + output);
+    data.subject += " TDEE: " + output;
+    // revalidatePath("/details/cltfa3i6b64uk08u097trdku3");
     sendEmail(data);
   }
   return (
@@ -117,7 +140,7 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
 
             <div className="relative">
               <input
-                onChange={(e) => setGender(e.target.value)}
+                onChange={genderChange}
                 className="sr-only peer"
                 type="radio"
                 value="female"
@@ -210,7 +233,11 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
       </div>
 
       <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
-        <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          // className="mt-5 grayscale"
+          className={`mt-5 ${disabled == true && "grayscale"}`}
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="mb-5">
             <label
               htmlFor="name"
@@ -219,6 +246,7 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
               Full Name
             </label>
             <input
+              disabled={disabled}
               type="text"
               placeholder="Full Name"
               className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
@@ -233,6 +261,7 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
               Email Address
             </label>
             <input
+              disabled={disabled}
               type="email"
               placeholder="example@domain.com"
               className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
@@ -250,12 +279,13 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
                 : "Subject"}
             </label>
             <input
+              disabled={disabled}
               type="text"
               placeholder="subject"
               value={
                 output === null
-                  ? stateOfInput.toLowerCase() + " TDEE: " + 0
-                  : stateOfInput.toLowerCase() + " TDEE: " + output
+                  ? stateOfInput.toLowerCase()
+                  : stateOfInput.toLowerCase()
               }
               // onChange={(e) => setStateOfInput(e.target.value)}
               className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
@@ -271,6 +301,7 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
               Message
             </label>
             <textarea
+              disabled={disabled}
               rows={4}
               placeholder="Type your message"
               className="w-full resize-none rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
@@ -278,7 +309,10 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
             ></textarea>
           </div>
           <div>
-            <button className="hover:shadow-form rounded-md bg-primary py-3 px-8 text-base font-semibold text-white outline-none">
+            <button
+              disabled={disabled}
+              className="hover:shadow-form rounded-md bg-primary py-3 px-8 text-base font-semibold text-white outline-none"
+            >
               Submit
             </button>
           </div>
