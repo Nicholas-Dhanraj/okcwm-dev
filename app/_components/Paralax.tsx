@@ -90,7 +90,7 @@ const Paralax = () => {
         <div className="shadow-md rounded-sm gap-6 flex flex-col md:flex-row h-90% w-screen ">
           <div className="backdrop-blur-xl bg-white/30 flex flex-col items-center justify-center max-w-lg gap-1 lg:ml-36">
             <Image
-              src={"/olla.jpg"}
+              src={"/images/olla.jpg"}
               alt={"business.name"}
               width={600}
               height={200}
