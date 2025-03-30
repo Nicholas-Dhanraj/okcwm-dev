@@ -51,7 +51,7 @@ function BusinessDescription({ business }: any) {
                   {
                     lineItems: [
                       {
-                        price: "price_1R4BFW03uwdOP6bvaQtdHymP",
+                        price: "price_1R8UwQ03uwdOP6bvWKnjrk7a",
                         quantity: 1,
                       },
                     ],
