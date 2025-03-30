@@ -15,8 +15,8 @@ export async function checkout({ lineItems }, business) {
   await stripe.redirectToCheckout({
     mode: "payment",
     lineItems,
-    successUrl: `http://localhost:3000/details/${business}?is_success=true`,
-    cancelUrl: `http://localhost:3000/details/${business}?is_success=false`,
+    successUrl: `https://okcwm.com/details/${business}?is_success=true`,
+    cancelUrl: `https://okcwm.com/details/${business}?is_success=false`,
   });
 }
 
