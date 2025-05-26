@@ -54,7 +54,8 @@ export default function Home() {
           {/* <h2>together</h2> */}
           <motion.div style={{ x }} className={styles.buttonContainer}>
             <Rounded backgroundColor={"#25D366"} className={styles.button}>
-              <p>Watsapp (icon)</p>
+              {/* <p>Watsapp (icon)</p> */}
+              <Image src="/wa.svg" width={100} height={100} alt="watsapp" />
             </Rounded>
           </motion.div>
           <motion.svg
