@@ -3,6 +3,7 @@ import { useScroll, useTransform, motion } from "framer-motion";
 import styles from "./style.module.scss";
 import Image from "next/image";
 import Rounded from "../../../common/RoundedButton/index";
+import Link from "next/link";
 
 const slider1 = [
   {
@@ -64,7 +65,7 @@ export default function Index() {
         <p className={styles.pa}>
           Use{" "}
           <span style={{ color: "#7f57f1", fontWeight: 500 }}>
-            &nbsp; #hashtag &nbsp;
+            &nbsp; #okcwm &nbsp;
           </span>{" "}
           to be featured on our insta!{" "}
         </p>
@@ -76,7 +77,16 @@ export default function Index() {
             }
             // backgroundColor={"#25D366"}
           >
-            <p>View more posts</p>
+            <Link
+              legacyBehavior
+              href={
+                "https://www.instagram.com/ollaalkaisi?igsh=MTNqM2pyOXltMzR2dw=="
+              }
+            >
+              <a target="_blank">
+                <p>View more posts</p>
+              </a>
+            </Link>
           </Rounded>
         </div>
       </div>

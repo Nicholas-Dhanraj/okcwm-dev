@@ -66,6 +66,7 @@ export default function Home() {
 
               <Magnetic>
                 <Link
+                  target="_blank"
                   href={"https://youtube.com/@ollakaisi?si=mi856FP75CKwX5Zc"}
                 >
                   <Image src="/yt.svg" width={30} height={30} alt="youtube" />
@@ -73,6 +74,7 @@ export default function Home() {
               </Magnetic>
               <Magnetic>
                 <Link
+                  target="_blank"
                   href={
                     "https://www.tiktok.com/@ollaalkaisi?_t=ZM-8uMBdknVwNb&_r=1"
                   }
@@ -82,6 +84,7 @@ export default function Home() {
               </Magnetic>
               <Magnetic>
                 <Link
+                  target="_blank"
                   href={
                     "https://www.instagram.com/ollaalkaisi?igsh=MTNqM2pyOXltMzR2dw=="
                   }
