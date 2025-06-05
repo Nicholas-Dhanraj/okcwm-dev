@@ -13,7 +13,7 @@ import Calculator from "./calculator/Calculator";
 import Textfield from "../_components/calculator/Textfield";
 import ButtonCal from "../_components/calculator/Button";
 import { toNumber } from "../utils/index";
-import { ChangeEvent, FocusEvent, useState } from "react";
+import { ChangeEvent, FocusEvent, useRef, useState } from "react";
 import { InitialFormState } from "../types/index";
 interface ModalProps {
   subject: any;
@@ -75,7 +75,7 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
     setDisabled(false);
     console.log("OUTPUT1" + output);
   };
-
+  const ref = useRef<HTMLFormElement>(null);
   const onReset = () => {
     setForm(InitialFormState);
     setDisabled(true);
@@ -97,6 +97,9 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
     data.subject += " TDEE: " + output;
     // revalidatePath("/details/cltfa3i6b64uk08u097trdku3");
     sendEmail(data);
+    ref.current?.reset();
+    setForm(InitialFormState);
+    setDisabled(true);
   }
   return (
     <div className="container mx-auto flex flex-wrap lg:justify-between">
@@ -235,6 +238,7 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
       <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
         <form
           // className="mt-5 grayscale"
+          ref={ref}
           className={`mt-5 ${disabled == true && "grayscale"}`}
           onSubmit={handleSubmit(onSubmit)}
         >

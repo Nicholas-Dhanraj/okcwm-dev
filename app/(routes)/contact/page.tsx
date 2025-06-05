@@ -28,9 +28,10 @@ export default function Home() {
   const rotate = useTransform(scrollYProgress, [0, 1], [120, 90]);
 
   const { register, handleSubmit } = useForm<FormData>();
-
+  const ref = useRef<HTMLFormElement>(null);
   function onSubmit(data: FormData) {
     sendEmail(data);
+    ref.current?.reset();
   }
 
   return (
@@ -76,7 +77,7 @@ export default function Home() {
         </div>
 
         <div className="w-full px-4 lg:w-1/2 xl:w-6/12 ml-10">
-          <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
+          <form ref={ref} className="mt-5" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-5">
               <label
                 htmlFor="name"
