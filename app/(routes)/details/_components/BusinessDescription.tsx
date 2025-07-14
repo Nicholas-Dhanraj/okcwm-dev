@@ -43,51 +43,55 @@ function BusinessDescription({ business }: any) {
           >
             Book & pay
           </Button> */}
-          {business.category?.name !== "Monthly" ? (
-            <Button
-              disabled={search == "true"}
-              onClick={() => {
-                checkout(
-                  {
-                    lineItems: [
+          {/* price_1PNMGyP1cuejz2kzttZrj10a */}
+          {business.address !== "FREE" && (
+            <>
+              {business.category?.name !== "Monthly" ? (
+                <Button
+                  disabled={search == "true"}
+                  onClick={() => {
+                    checkout(
                       {
-                        price: "price_1R8jii03uwdOP6bvIXrJ8nDX_",
-                        quantity: 1,
+                        lineItems: [
+                          {
+                            price: "price_1R4BFW03uwdOP6bvaQtdHymP",
+                            quantity: 1,
+                          },
+                        ],
                       },
-                    ],
-                  },
-                  business.id
-                );
-              }}
-              className="flex gap-2 w-full"
-            >
-              <NotebookPen />
-              Proceed to payment
-            </Button>
-          ) : (
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="flex gap-2 w-full">
+                      business.id
+                    );
+                  }}
+                  className="flex gap-2 w-full"
+                >
                   <NotebookPen />
-                  Create personalized monthly plan
+                  Proceed to payment
                 </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[1000px] overflow-y-scroll max-h-screen">
-                <DialogHeader></DialogHeader>
-                <ContactMonthly subject={business.name} />
-                {/* <Calculator /> */}
-                {/* <DialogFooter>
+              ) : (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="flex gap-2 w-full">
+                      <NotebookPen />
+                      Create personalized monthly plan
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[1000px] overflow-y-scroll max-h-screen">
+                    <DialogHeader></DialogHeader>
+                    <ContactMonthly subject={business.name} />
+                    {/* <Calculator /> */}
+                    {/* <DialogFooter>
             <Button type="submit">Save changes</Button>
           </DialogFooter> */}
-              </DialogContent>
-            </Dialog>
+                  </DialogContent>
+                </Dialog>
+              )}
+            </>
           )}
           {search == "true" && (
             <div className="bg-green-100 text-green-700 p-2 rounded border mb-2 border-green-700 text-center">
               Payment Successful
             </div>
           )}
-
           {search == "false" && (
             <div className="bg-red-100 text-red-700 p-2 rounded border mb-2 border-red-700 text-center">
               Payment was not successful
@@ -96,7 +100,7 @@ function BusinessDescription({ business }: any) {
           {business.category?.name !== "Monthly" ? (
             <BookingSection business={business}>
               <Button
-                disabled={!(search == "true")}
+                disabled={business.address !== "FREE" && !(search == "true")}
                 className="flex gap-2 w-full"
               >
                 <NotebookPen />
