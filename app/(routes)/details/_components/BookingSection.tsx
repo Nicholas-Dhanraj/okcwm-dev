@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { sendEmail } from "@/app/utils/email";
+
 import { checkout } from "./checkout";
 import {
   AlertDialog,
@@ -171,6 +173,12 @@ function BookingSection({ children, business }: any) {
           // setSelectedTime("");
           toast("Service Booked successfully!");
           // Toast Msg
+          sendEmail({
+            name: "",
+            email: data?.user?.email || "",
+            subject: business.name,
+            message: "Booking made!",
+          });
         }
       },
       (e) => {
