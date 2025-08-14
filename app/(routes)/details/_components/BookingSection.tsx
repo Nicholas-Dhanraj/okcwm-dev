@@ -177,7 +177,11 @@ function BookingSection({ children, business }: any) {
             name: "",
             email: data?.user?.email || "",
             subject: business.name,
-            message: "Booking made!",
+            message:
+              "Booking made! " +
+              selectedTime! +
+              " on " +
+              moment(date).format("DD-MMM-yyyy"),
           });
         }
       },
