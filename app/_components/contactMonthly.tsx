@@ -26,6 +26,7 @@ import { revalidatePath } from "next/cache";
 export type FormData = {
   name: string;
   email: string;
+  phone: string;
   subject: string;
   message: string;
 };
@@ -95,6 +96,7 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
     });
     console.log("OUTPUT2" + output);
     data.subject += " TDEE: " + output;
+    data.message = "Phone: " + data.phone + "\n\n" + data.message;
     // revalidatePath("/details/cltfa3i6b64uk08u097trdku3");
     sendEmail(data);
     ref.current?.reset();
@@ -272,7 +274,21 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
               {...register("email", { required: true })}
             />
           </div>
-
+          <div className="mb-5">
+            <label
+              htmlFor="phone"
+              className="mb-3 block text-base font-medium text-black"
+            >
+              Phone
+            </label>
+            <input
+              disabled={disabled}
+              type="tel"
+              placeholder="123-123-1234"
+              className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
+              {...register("phone", { required: true })}
+            />
+          </div>
           <div className="mb-5">
             <label
               htmlFor="subject"

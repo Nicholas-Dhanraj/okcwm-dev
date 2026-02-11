@@ -98,7 +98,7 @@ function BusinessDescription({ business }: any) {
             </div>
           )}
           {business.category?.name !== "Monthly" ? (
-            <BookingSection business={business}>
+            <BookingSection business={business} sheetOpen={true}>
               <Button
                 disabled={business.address !== "FREE" && !(search == "true")}
                 className="flex gap-2 w-full"

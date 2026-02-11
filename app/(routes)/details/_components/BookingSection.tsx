@@ -42,7 +42,14 @@ import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import moment from "moment";
 import { DayMouseEventHandler } from "react-day-picker";
-
+import { useForm } from "react-hook-form";
+export type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+};
 function BookingSection({ children, business }: any) {
   // const data1 = [{ from: new Date(2024, 0, 5), to: new Date(2024, 0, 9) }];
   const [timeOffList, settimeOffList] = useState([]);
@@ -53,6 +60,8 @@ function BookingSection({ children, business }: any) {
   const [bookedSlot, setBookedSlot] = useState([] as any);
   const { data } = useSession();
   const [open, setOpen] = React.useState(true);
+  const { register, handleSubmit } = useForm<FormData>();
+  // const [phone, setPhone] = useState(0);
 
   const getDateAdjustedForTimezone = (dateInput: Date | string): Date => {
     if (typeof dateInput === "string") {
@@ -68,6 +77,12 @@ function BookingSection({ children, business }: any) {
     }
   };
 
+  const handleChange = (event: { target: { value: any } }) => {
+    // Access the current value of the input field
+    const newValue = event.target.value;
+    // Update the state with the new value
+    // setPhone(newValue);
+  };
   useEffect(() => {
     getTimeOffList();
     // console.log("resp.timeOffs");
@@ -181,7 +196,9 @@ function BookingSection({ children, business }: any) {
               "Booking made! " +
               selectedTime! +
               " on " +
-              moment(date).format("DD-MMM-yyyy"),
+              moment(date).format("DD-MMM-yyyy") +
+              "\n\n" +
+              "phone",
           });
         }
       },
@@ -192,6 +209,41 @@ function BookingSection({ children, business }: any) {
     );
   };
 
+  function onSubmit(formdata: FormData) {
+    GlobalApi.createNewBooking(
+      business.id,
+      moment(date).format("DD-MMM-yyyy"),
+      selectedTime!,
+      data!.user!.email!,
+      data!.user!.name!
+    ).then(
+      (resp) => {
+        console.log(resp);
+        if (resp) {
+          // setDate();
+          // setSelectedTime("");
+          toast("Service Booked successfully!");
+          // Toast Msg
+          sendEmail({
+            name: "",
+            email: data?.user?.email || "",
+            subject: business.name,
+            message:
+              "Booking made! " +
+              selectedTime! +
+              " on " +
+              moment(date).format("DD-MMM-yyyy") +
+              "\n\n" +
+              formdata.phone,
+          });
+        }
+      },
+      (e) => {
+        toast("Error while creating booking");
+        //Error Toast Msg
+      }
+    );
+  }
   const isSlotBooked = (time: any) => {
     return bookedSlot.find((item: { time: any }) => item.time == time);
   };
@@ -251,6 +303,50 @@ function BookingSection({ children, business }: any) {
                   </Button>
                 ))}
               </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mb-5">
+                  <label
+                    htmlFor="phone"
+                    className="mb-3 block text-base font-medium text-black"
+                  >
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    placeholder="123-123-1234"
+                    className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
+                    required
+                  />
+                </div>
+                <SheetClose asChild>
+                  <div className="flex gap-5">
+                    <Button variant="destructive" className="">
+                      Cancel
+                    </Button>
+
+                    <Button
+                      disabled={!(selectedTime && date)}
+                      // onClick={() => {
+                      //   checkout(
+                      //     {
+                      //       lineItems: [
+                      //         {
+                      //           price: "price_1PNMGyP1cuejz2kzttZrj10a",
+                      //           quantity: 1,
+                      //         },
+                      //       ],
+                      //     },
+                      //     business.id
+                      //   );
+                      // }}
+
+                      // onClick={() => saveBooking()}
+                    >
+                      Book & pay
+                    </Button>
+                  </div>
+                </SheetClose>
+              </form>
             </SheetDescription>
           </SheetHeader>
           <SheetFooter className="mt-5">
