@@ -245,7 +245,7 @@ const createNewBooking = async (
   date: any,
   time: string,
   userEmail: string,
-  userName: string
+  userName: string,
 ) => {
   const mutationQuery =
     gql`
@@ -308,9 +308,7 @@ const BusinessBookedSlot = async (businessId: String, date: any) => {
     gql`
   query BusinessBookedSlot {
     bookings(where: {businessList: 
-      {id: "` +
-    businessId +
-    `"}, date: "` +
+      {}, date: "` +
     date +
     `"}) {
       date

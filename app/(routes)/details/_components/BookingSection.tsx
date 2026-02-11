@@ -132,9 +132,10 @@ function BookingSection({ children, business }: any) {
   const BusinessBookedSlot = () => {
     GlobalApi.BusinessBookedSlot(
       business.id,
-      moment(date).format("DD-MMM-yyyy")
+      moment(date).format("DD-MMM-yyyy"),
     ).then((resp: any) => {
       console.log(resp);
+
       setBookedSlot(resp.bookings);
     });
   };
@@ -179,14 +180,16 @@ function BookingSection({ children, business }: any) {
       moment(date).format("DD-MMM-yyyy"),
       selectedTime!,
       data!.user!.email!,
-      data!.user!.name!
+      data!.user!.name!,
     ).then(
       (resp) => {
         console.log(resp);
         if (resp) {
           // setDate();
           // setSelectedTime("");
-          toast("Service Booked successfully!");
+          toast(
+            "Booked successfully! You will be contacted regarding further actions.",
+          );
           // Toast Msg
           sendEmail({
             name: "",
@@ -205,7 +208,7 @@ function BookingSection({ children, business }: any) {
       (e) => {
         toast("Error while creating booking");
         //Error Toast Msg
-      }
+      },
     );
   };
 
@@ -215,7 +218,7 @@ function BookingSection({ children, business }: any) {
       moment(date).format("DD-MMM-yyyy"),
       selectedTime!,
       data!.user!.email!,
-      data!.user!.name!
+      data!.user!.name!,
     ).then(
       (resp) => {
         console.log(resp);
@@ -241,7 +244,7 @@ function BookingSection({ children, business }: any) {
       (e) => {
         toast("Error while creating booking");
         //Error Toast Msg
-      }
+      },
     );
   }
   const isSlotBooked = (time: any) => {
@@ -318,7 +321,7 @@ function BookingSection({ children, business }: any) {
                     required
                   />
                 </div>
-                <SheetClose asChild>
+                {/* <SheetClose asChild>
                   <div className="flex gap-5">
                     <Button variant="destructive" className="">
                       Cancel
@@ -345,7 +348,7 @@ function BookingSection({ children, business }: any) {
                       Book & pay
                     </Button>
                   </div>
-                </SheetClose>
+                </SheetClose> */}
               </form>
             </SheetDescription>
           </SheetHeader>
@@ -374,7 +377,7 @@ function BookingSection({ children, business }: any) {
 
                   onClick={() => saveBooking()}
                 >
-                  Book & pay
+                  Book Appointment
                 </Button>
               </div>
             </SheetClose>
