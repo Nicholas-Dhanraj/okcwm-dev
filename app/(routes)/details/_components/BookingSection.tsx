@@ -61,7 +61,7 @@ function BookingSection({ children, business }: any) {
   const { data } = useSession();
   const [open, setOpen] = React.useState(true);
   const { register, handleSubmit } = useForm<FormData>();
-  // const [phone, setPhone] = useState(0);
+  const [phone, setPhone] = useState(0);
 
   const getDateAdjustedForTimezone = (dateInput: Date | string): Date => {
     if (typeof dateInput === "string") {
@@ -81,7 +81,7 @@ function BookingSection({ children, business }: any) {
     // Access the current value of the input field
     const newValue = event.target.value;
     // Update the state with the new value
-    // setPhone(newValue);
+    setPhone(newValue);
   };
   useEffect(() => {
     getTimeOffList();
@@ -162,55 +162,7 @@ function BookingSection({ children, business }: any) {
     setTimeSlot(timeList);
   };
 
-  const saveBooking = () => {
-    // checkout(
-    //   {
-    //     lineItems: [
-    //       {
-    //         price: "price_1PNMGyP1cuejz2kzttZrj10a",
-    //         quantity: 1,
-    //       },
-    //     ],
-    //   },
-    //   business.id
-    // );
-
-    GlobalApi.createNewBooking(
-      business.id,
-      moment(date).format("DD-MMM-yyyy"),
-      selectedTime!,
-      data!.user!.email!,
-      data!.user!.name!,
-    ).then(
-      (resp) => {
-        console.log(resp);
-        if (resp) {
-          // setDate();
-          // setSelectedTime("");
-          toast(
-            "Booked successfully! You will be contacted regarding further actions.",
-          );
-          // Toast Msg
-          sendEmail({
-            name: "",
-            email: data?.user?.email || "",
-            subject: business.name,
-            message:
-              "Booking made! " +
-              selectedTime! +
-              " on " +
-              moment(date).format("DD-MMM-yyyy") +
-              "\n\n" +
-              "phone",
-          });
-        }
-      },
-      (e) => {
-        toast("Error while creating booking");
-        //Error Toast Msg
-      },
-    );
-  };
+  const saveBooking = () => {};
 
   function onSubmit(formdata: FormData) {
     GlobalApi.createNewBooking(
@@ -237,7 +189,8 @@ function BookingSection({ children, business }: any) {
               " on " +
               moment(date).format("DD-MMM-yyyy") +
               "\n\n" +
-              formdata.phone,
+              "Phone: " +
+              phone,
           });
         }
       },
@@ -319,7 +272,39 @@ function BookingSection({ children, business }: any) {
                     placeholder="123-123-1234"
                     className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
                     required
+                    onChange={handleChange}
                   />
+
+                  <SheetFooter className="mt-5">
+                    <SheetClose asChild>
+                      <div className="flex gap-5">
+                        <Button variant="destructive" className="">
+                          Cancel
+                        </Button>
+
+                        <Button
+                          disabled={!(selectedTime && date && phone != 0)}
+                          // onClick={() => {
+                          //   checkout(
+                          //     {
+                          //       lineItems: [
+                          //         {
+                          //           price: "price_1PNMGyP1cuejz2kzttZrj10a",
+                          //           quantity: 1,
+                          //         },
+                          //       ],
+                          //     },
+                          //     business.id
+                          //   );
+                          // }}
+
+                          onClick={() => saveBooking()}
+                        >
+                          Book Appointment
+                        </Button>
+                      </div>
+                    </SheetClose>
+                  </SheetFooter>
                 </div>
                 {/* <SheetClose asChild>
                   <div className="flex gap-5">
@@ -352,36 +337,6 @@ function BookingSection({ children, business }: any) {
               </form>
             </SheetDescription>
           </SheetHeader>
-          <SheetFooter className="mt-5">
-            <SheetClose asChild>
-              <div className="flex gap-5">
-                <Button variant="destructive" className="">
-                  Cancel
-                </Button>
-
-                <Button
-                  disabled={!(selectedTime && date)}
-                  // onClick={() => {
-                  //   checkout(
-                  //     {
-                  //       lineItems: [
-                  //         {
-                  //           price: "price_1PNMGyP1cuejz2kzttZrj10a",
-                  //           quantity: 1,
-                  //         },
-                  //       ],
-                  //     },
-                  //     business.id
-                  //   );
-                  // }}
-
-                  onClick={() => saveBooking()}
-                >
-                  Book Appointment
-                </Button>
-              </div>
-            </SheetClose>
-          </SheetFooter>
         </SheetContent>
       </Sheet>
     </div>

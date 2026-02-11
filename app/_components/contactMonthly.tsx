@@ -96,7 +96,7 @@ const ContactMonthly: React.FC<ModalProps> = ({ subject }) => {
     });
     console.log("OUTPUT2" + output);
     data.subject += " TDEE: " + output;
-    data.message = "Phone: " + data.phone + "\n\n" + data.message;
+    data.message = "Phone: " + data.phone + "\n\n" + "Message: " + data.message;
     // revalidatePath("/details/cltfa3i6b64uk08u097trdku3");
     sendEmail(data);
     ref.current?.reset();
